@@ -1,0 +1,10 @@
+FROM node:alpine AS build-phase
+WORKDIR /usr/app
+COPY package.json .
+RUN npm install -g @angular/cli
+RUN npm install
+COPY . .
+CMD ["npm", "run", "build"]
+
+FROM nginx AS run-phase
+COPY --from=build-phase /usr/app/dist/codepulse /usr/share/nginx/html

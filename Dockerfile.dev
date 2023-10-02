@@ -1,0 +1,13 @@
+FROM node:alpine 
+
+WORKDIR /usr/app
+COPY ./package.json .
+
+ENV CHROME_BIN=usr/bin/google-chrome
+RUN npm install
+RUN npm install -g @angular/cli
+
+COPY . .
+
+EXPOSE 4200
+CMD [ "npm", "start" ]
